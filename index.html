@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Petit Bistrot — Restaurant français à Abbeville</title>
+<meta name="description" content="Le Petit Bistrot, restaurant français au 15 Pl. Max Lejeune à Abbeville. Ouvert du mardi au samedi, 8h30–19h00. Tél. +33 3 22 24 24 13.">
+<meta name="keywords" content="restaurant Abbeville, bistrot Abbeville, cuisine française Abbeville, où manger à Abbeville, restaurant centre-ville Abbeville, menu du jour Abbeville, terrasse Abbeville, dîner romantique Abbeville">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #B85C38;
+    --secondary: #6B7F4A;
+    --background: #FDF6EC;
+    --text: #3E2C23;
+    --cta: #C1440E;
+    --font-heading: 'DM Serif Display', serif;
+    --font-body: 'Jost', sans-serif;
+    --radius: 12px;
+    --shadow-soft: 0 8px 40px rgba(62,44,35,0.10), 0 2px 8px rgba(62,44,35,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--background);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--primary);
+    line-height: 1.2;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── FADE-IN ANIMATION ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── NAVIGATION ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(253,246,236,0.97);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(184,92,56,0.12);
+    box-shadow: 0 2px 16px rgba(62,44,35,0.07);
+  }
+
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: relative;
+  }
+
+  .nav-logo {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  nav ul li a {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav ul li a:hover {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 6px;
+    z-index: 1100;
+  }
+
+  .burger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 767px) {
+    .burger { display: flex; }
+
+    nav ul {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 64px;
+      left: 0; right: 0;
+      background: rgba(253,246,236,0.99);
+      padding: 1.5rem 1.25rem 2rem;
+      gap: 0.5rem;
+      border-bottom: 2px solid rgba(184,92,56,0.15);
+      box-shadow: 0 8px 24px rgba(62,44,35,0.10);
+    }
+
+    nav ul.open {
+      display: flex;
+    }
+
+    nav ul li a {
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    nav ul {
+      display: flex !important;
+      flex-direction: row;
+      position: static;
+      background: none;
+      padding: 0;
+      box-shadow: none;
+      border: none;
+    }
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta {
+    display: inline-block;
+    background: var(--cta);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(193,68,14,0.22);
+    text-align: center;
+  }
+
+  .cta:hover {
+    background: #a33a0c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(193,68,14,0.30);
+  }
+
+  .cta:active { transform: translateY(0); }
+
+  /* ── SECTION COMMONS ── */
+  section {
+    padding: 5rem 1.25rem;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-text {
+    font-size: 1.05rem;
+    color: var(--text);
+    opacity: 0.85;
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    width: 56px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1.25rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(62,44,35,0.62) 0%, rgba(62,44,35,0.38) 60%, rgba(184,92,56,0.18) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(62,44,35,0.45);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-content .hero-sub {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: rgba(255,255,255,0.88);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-content .hero-text {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.80);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-outline {
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.75);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.72rem 1.65rem;
+    border-radius: var(--radius);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .cta-outline:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #fff;
+  }
+
+  /* ── ABOUT ── */
+  #apropos {
+    background: #fff;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .about-img-wrap {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: visible;
+    aspect-ratio: 4/3;
+  }
+
+  .about-img-wrap img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* corner_frame decoration */
+  .corner-frame {
+    position: relative;
+  }
+
+  .corner-frame::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: 60px;
+    height: 60px;
+    border-top: 3px solid var(--primary);
+    border-left: 3px solid var(--primary);
+    border-radius: 4px 0 0 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .corner-frame::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    width: 60px;
+    height: 60px;
+    border-bottom: 3px solid var(--secondary);
+    border-right: 3px solid var(--secondary);
+    border-radius: 0 0 4px 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .about-text h2 { margin-bottom: 0.5rem; }
+
+  .about-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--background);
+    border-radius: var(--radius);
+    border-left: 3px solid var(--primary);
+    font-size: 0.95rem;
+  }
+
+  .about-address svg { flex-shrink: 0; margin-top: 3px; }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ── FEATURED MENU ── */
+  #cuisine {
+    background: var(--background);
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .menu-card {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .menu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(62,44,35,0.13);
+  }
+
+  .menu-card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .menu-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .menu-card p {
+    font-size: 0.95rem;
+    opacity: 0.82;
+  }
+
+  .menu-cta-wrap {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .menu-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .menu-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── CUSTOMER REVIEWS ── */
+  #avis {
+    background: #fff;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .review-card {
+    background: var(--background);
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem 1.75rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+
+  .big-quote {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    color: var(--primary);
+    opacity: 0.18;
+    line-height: 1;
+    position: absolute;
+    top: 0.5rem;
+    left: 1.25rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .review-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+  }
+
+  .star {
+    color: #E8A838;
+    font-size: 1.1rem;
+  }
+
+  .review-quote {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    white-space: pre-line;
+  }
+
+  .review-author {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary);
+  }
+
+  .review-date {
+    font-size: 0.82rem;
+    color: var(--text);
+    opacity: 0.55;
+    margin-top: 0.2rem;
+  }
+
+  @media (min-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reviews-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── GALLERY CAROUSEL ── */
+  #galerie {
+    background: var(--background);
+    overflow: hidden;
+  }
+
+  .carousel-wrap {
+    position: relative;
+    margin-top: 2.5rem;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .carousel-slide.corner-frame::before {
+    top: -10px;
+    left: -10px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .carousel-slide.corner-frame::after {
+    bottom: -10px;
+    right: -10px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .carousel-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-btn:hover {
+    background: var(--cta);
+    transform: scale(1.08);
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(184,92,56,0.25);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+  }
+
+  .carousel-dot.active {
+    background: var(--primary);
+    transform: scale(1.3);
+  }
+
+  @media (min-width: 768px) {
+    .carousel-slide {
+      min-width: 50%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-slide {
+      min-width: 33.333%;
+    }
+  }
+
+  /* ── HOURS & LOCATION ── */
+  #horaires {
+    background: #fff;
+  }
+
+  .hours-location-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2.5rem;
+  }
+
+  .hours-table-wrap h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.97rem;
+  }
+
+  .hours-table tr {
+    border-bottom: 1px solid rgba(184,92,56,0.10);
+  }
+
+  .hours-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .hours-table td {
+    padding: 0.65rem 0.5rem;
+  }
+
+  .hours-table td:first-child {
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: capitalize;
+    width: 48%;
+  }
+
+  .hours-table td:last-child {
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .hours-table tr.closed td {
+    opacity: 0.45;
+  }
+
+  .location-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .location-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.97rem;
+  }
+
+  .location-detail svg { flex-shrink: 0; margin-top: 3px; }
+
+  .map-embed {
+    margin-top: 1.5rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .map-embed iframe {
+    width: 100%;
+    height: 280px;
+    border: none;
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .hours-location-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ── CONTACT FORM ── */
+  #contact {
+    background: var(--background);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  .contact-form-wrap {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid rgba(184,92,56,0.22);
+    border-radius: calc(var(--radius) - 4px);
+    font-family: var(--font-body);
+    font-size: 0.97rem;
+    color: var(--text);
+    background: var(--background);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(184,92,56,0.10);
+  }
+
+  .form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .contact-info-wrap h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.1rem;
+    font-size: 0.97rem;
+  }
+
+  .contact-info-item svg { flex-shrink: 0; margin-top: 3px; }
+
+  .contact-info-item a {
+    color: var(--primary);
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  .contact-info-item a:hover { opacity: 0.75; }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+
+  /* ── TRUST SIGNALS ── */
+  #confiance {
+    background: var(--primary);
+    padding: 4rem 1.25rem;
+  }
+
+  #confiance .section-title {
+    color: #fff;
+  }
+
+  #confiance .section-label {
+    color: rgba(255,255,255,0.70);
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .trust-item {
+    background: rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 1.25rem 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: #fff;
+    font-size: 0.93rem;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .trust-item svg { flex-shrink: 0; margin-top: 2px; }
+
+  @media (min-width: 768px) {
+    .trust-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.75);
+    padding: 3rem 1.25rem 2rem;
+    font-size: 0.9rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-brand h3 {
+    font-family: var(--font-heading);
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-brand p {
+    line-height: 1.7;
+    opacity: 0.75;
+  }
+
+  .footer-links h4 {
+    font-family: var(--font-heading);
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer-links ul li a {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links ul li a:hover { color: #fff; }
+
+  .footer-social {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    transition: background 0.2s;
+  }
+
+  .footer-social a:hover { background: var(--primary); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    opacity: 0.55;
+  }
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  /* ── SCROLL TO TOP ── */
+  #scrolltop {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(62,44,35,0.22);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.2s;
+    z-index: 900;
+  }
+
+  #scrolltop.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #scrolltop:hover { transform: translateY(-3px); }
+
+/* ── GARDE-FOU NAV (post-traitement deterministe, pas le LLM) ────────────────
+   Le modele produit typiquement `nav ul.open { flex-direction:column }` SANS
+   media query. Sa specificite (0,2,1) bat la regle desktop `nav ul` (0,0,2)
+   quand celle-ci n'a pas !important sur flex-direction : au retour en desktop
+   apres ouverture du burger, le menu reste empile en colonne (menu casse).
+   Cette regle force l'etat desktop quel que soit l'etat de .open. */
+@media (min-width: 768px) {
+  nav ul, nav ul.open, nav.open ul, nav ul[data-open="true"] {
+    flex-direction: row !important;
+    position: static !important;
+    display: flex !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    width: auto !important;
+  }
+  .burger, button.burger, .nav-toggle, #burger, .burger-menu { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER / NAV ── -->
+<header>
+  <nav aria-label="Navigation principale">
+    <a href="#hero" class="nav-logo">Le Petit Bistrot</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="nav-menu" role="list">
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#cuisine">Notre cuisine</a></li>
+      <li><a href="#avis">Avis clients</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#horaires">Horaires</a></li>
+      <li><a href="#contact" class="cta" aria-label="Réserver une table">Réserver une table</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section id="hero" aria-label="Accueil Le Petit Bistrot">
+  <div class="hero-bg">
+    <img src="assets/hero.jpg" alt="Ambiance chaleureuse du Petit Bistrot à Abbeville" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <h1>Le Petit Bistrot</h1>
+    <p class="hero-sub">Restaurant français au cœur d'Abbeville</p>
+    <p class="hero-text">Une halte chaleureuse au 15 Pl. Max Lejeune, à Abbeville. Venez partager un bon moment autour d'une cuisine française, dans une ambiance conviviale.</p>
+    <div class="hero-ctas">
+      <a href="tel:+33322242413" class="cta" aria-label="Nous appeler">Nous appeler</a>
+      <a href="#cuisine" class="cta-outline" aria-label="Découvrir la carte">Découvrir la carte</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── À PROPOS ── -->
+<section id="apropos" aria-label="À propos du Petit Bistrot">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap corner-frame fade-in">
+        <img src="assets/gallery-1.jpg" alt="Intérieur chaleureux du Petit Bistrot" loading="lazy">
+      </div>
+      <div class="about-text fade-in">
+        <span class="section-label">Notre histoire</span>
+        <h2 class="section-title">Bienvenue au Petit Bistrot</h2>
+        <div class="divider"></div>
+        <p class="section-text">Le Petit Bistrot est un restaurant français situé au 15 Pl. Max Lejeune, à Abbeville. Ici, on vous accueille avec le sourire et on vous présente le menu du jour avec gentillesse. Que vous soyez de passage ou habitué, prenez place et laissez-vous tenter par notre cuisine.</p>
+        <div class="about-address">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>15 Pl. Max Lejeune, 80100 Abbeville, France</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="#contact" class="cta" aria-label="Réserver une table">Réserver une table</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED MENU / NOTRE CUISINE ── -->
+<section id="cuisine" aria-label="Notre cuisine">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-label">Ce que nous proposons</span>
+      <h2 class="section-title">Notre cuisine</h2>
+      <div class="divider"></div>
+      <p class="section-text">Au Petit Bistrot, nous vous proposons un plat du jour, présenté avec soin par notre équipe. Parmi nos plats, notre fish and chips a su conquérir nos clients. Pour connaître le plat du jour, n'hésitez pas à nous appeler.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card fade-in">
+        <div class="menu-card-icon">🍽️</div>
+        <h3>Plat du jour</h3>
+        <p>Chaque jour, notre équipe prépare un plat du jour fait maison, présenté avec soin et enthousiasme. Appelez-nous pour connaître la suggestion du moment.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-icon">🐟</div>
+        <h3>Fish and chips maison</h3>
+        <p>Notre fish and chips a conquis le cœur de nos clients. Préparé sur place avec des produits frais, il est devenu l'une de nos spécialités incontournables.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-icon">🥂</div>
+        <h3>Accueil chaleureux</h3>
+        <p>La patronne et son équipe vous accueillent dans la bonne humeur. Venez sans réservation selon les disponibilités, ou appelez-nous pour vous assurer une place.</p>
+      </div>
+    </div>
+    <div class="menu-cta-wrap fade-in">
+      <a href="tel:+33322242413" class="cta" aria-label="Nous appeler pour connaître le plat du jour">Nous appeler</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CUSTOMER REVIEWS ── -->
+<section id="avis" aria-label="Avis de nos clients">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-label">Ils nous font confiance</span>
+      <h2 class="section-title">Ce que disent nos clients</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card fade-in">
+        <div class="big-quote" aria-hidden="true">"</div>
+        <div class="review-stars" aria-label="5 étoiles sur 5">
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="review-quote">Nous cherchions un petit restaurant sur la route de nos vacances et nous n'avons vraiment pas été déçus, malgré le fait que nous n'avions pas réservé !
+Nous avons adoré la façon dont la responsable nous a présenté le menu du jour, avec beaucoup de gentillesse. Nous nous sommes régalés, même notre petit garçon Marsault ! 🤩
+Merci pour ce bon moment, avec un petit plus également pour la serveuse en formation, qui a été super ! 😊
+Petit bémol concernant l'ambiance : nous avons trouvé l'équipe un peu froide entre eux, même si cela n'a en rien gâché notre repas ni notre expérience en tant que clients. 😊
+À bientôt 👋</p>
+        <p class="review-author">antoine rohart</p>
+        <p class="review-date">il y a un mois</p>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="big-quote" aria-hidden="true">"</div>
+        <div class="review-stars" aria-label="5 étoiles sur 5">
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="review-quote">C'est par hasard que je suis arrivée dans ce bistrot où l'ambiance est bien sympa. La patronne et les serveuses sont adorables. Un seul plat du jour, le fish and chips. Je me suis laissé tentée malgré de mauvaises expériences anglaises... Ici il était délicieux. Une bonne adresse donc qui fait le job !</p>
+        <p class="review-author">Elisabeth Auclert</p>
+        <p class="review-date">il y a 2 semaines</p>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="big-quote" aria-hidden="true">"</div>
+        <div class="review-stars" aria-label="5 étoiles sur 5">
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+          <span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="review-quote">Quel plaisir cette halte à Abbeville. Nous avons été très bien reçu dans la bonne humeur. Des commerçants comme on en veut. La patronne mène ses troupes dans la bonne humeur.
+Bonne cuisine.
+Un grand merci.</p>
+        <p class="review-author">Sylvie Geffriaud</p>
+        <p class="review-date">il y a un mois</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY PREVIEW (CAROUSEL) ── -->
+<section id="galerie" aria-label="Galerie photos du Petit Bistrot">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-label">En images</span>
+      <h2 class="section-title">Découvrez l'ambiance</h2>
+      <div class="divider"></div>
+      <p class="section-text">Découvrez l'ambiance du Petit Bistrot en images.</p>
+    </div>
+    <div class="carousel-wrap fade-in" aria-label="Carrousel de photos">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide corner-frame">
+          <img src="assets/hero.jpg" alt="Ambiance chaleureuse du Petit Bistrot" loading="lazy">
+        </div>
+        <div class="carousel-slide corner-frame">
+          <img src="assets/gallery-1.jpg" alt="Intérieur du Petit Bistrot à Abbeville" loading="lazy">
+        </div>
+        <div class="carousel-slide corner-frame">
+          <img src="assets/gallery-2.jpg" alt="Plats du Petit Bistrot" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls" role="group" aria-label="Contrôles du carrousel">
+      <button class="carousel-btn" id="prevBtn" aria-label="Image précédente">&#8592;</button>
+      <button class="carousel-btn" id="nextBtn" aria-label="Image suivante">&#8594;</button>
+    </div>
+    <div class="carousel-dots" role="group" aria-label="Navigation par points">
+      <button class="carousel-dot active" data-index="0" aria-label="Image 1"></button>
+      <button class="carousel-dot" data-index="1" aria-label="Image 2"></button>
+      <button class="carousel-dot" data-index="2" aria-label="Image 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOURS & LOCATION ── -->
+<section id="horaires" aria-label="Horaires et adresse du Petit Bistrot">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-label">Nous trouver</span>
+      <h2 class="section-title">Horaires &amp; adresse</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="hours-location-grid">
+      <div class="hours-table-wrap fade-in">
+        <h3>Nos horaires d'ouverture</h3>
+        <table class="hours-table" aria-label="Tableau des horaires d'ouverture">
+          <tbody>
+            <tr class="closed">
+              <td>Lundi</td>
+              <td>Fermé</td>
+            </tr>
+            <tr>
+              <td>Mardi</td>
+              <td>08:30 – 19:00</td>
+            </tr>
+            <tr>
+              <td>Mercredi</td>
+              <td>08:30 – 19:00</td>
+            </tr>
+            <tr>
+              <td>Jeudi</td>
+              <td>08:30 – 19:00</td>
+            </tr>
+            <tr>
+              <td>Vendredi</td>
+              <td>08:30 – 19:00</td>
+            </tr>
+            <tr>
+              <td>Samedi</td>
+              <td>08:30 – 19:00</td>
+            </tr>
+            <tr class="closed">
+              <td>Dimanche</td>
+              <td>Fermé</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="location-info fade-in">
+        <h3>Nous rendre visite</h3>
+        <div class="location-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>15 Pl. Max Lejeune, 80100 Abbeville, France</span>
+        </div>
+        <div class="location-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+33322242413" aria-label="Appeler le Petit Bistrot">+33 3 22 24 24 13</a>
+        </div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps?q=15+Pl.+Max+Lejeune,+80100+Abbeville,+France&output=embed"
+            title="Carte Google Maps — Le Petit Bistrot, 15 Pl. Max Lejeune, 80100 Abbeville"
+            loading="lazy"
+            allowfullscreen
+            aria-label="Carte de localisation du Petit Bistrot à Abbeville">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT FORM ── -->
+<section id="contact" aria-label="Formulaire de contact">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-label">Écrivez-nous</span>
+      <h2 class="section-title">Contactez-nous</h2>
+      <div class="divider"></div>
+      <p class="section-text">Une question, une réservation ? Écrivez-nous ou appelez-nous, nous vous répondrons avec plaisir.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-form-wrap fade-in">
+        <form action="https://checkout.kamkod.com/contact" method="POST" aria-label="Formulaire de contact Le Petit Bistrot">
+          <input type="hidden" name="lead_id" value="ChIJ6WUBFbiM3UcRmnRZldrpZPU">
+          <div class="form-group">
+            <label for="name">Votre nom</label>
+            <input type="text" id="name" name="name" placeholder="Prénom et nom" required autocomplete="name" aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="email">Votre adresse e-mail</label>
+            <input type="email" id="email" name="email" placeholder="exemple@email.fr" required autocomplete="email" aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" placeholder="Votre question ou demande de réservation..." required aria-required="true"></textarea>
+          </div>
+          <button type="submit" class="cta" aria-label="Envoyer le message">Envoyer</button>
+        </form>
+      </div>
+      <div class="contact-info-wrap fade-in">
+        <h3>Nos coordonnées</h3>
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>15 Pl. Max Lejeune, 80100 Abbeville, France</span>
+        </div>
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+33322242413" aria-label="Appeler le Petit Bistrot">+33 3 22 24 24 13</a>
+        </div>
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Ouvert du mardi au samedi, de 8h30 à 19h00.</span>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="tel:+33322242413" class="cta" aria-label="Nous appeler directement">Nous appeler directement</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST SIGNALS ── -->
+<section id="confiance" aria-label="Pourquoi choisir Le Petit Bistrot">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-label">Nos engagements</span>
+      <h2 class="section-title">Pourquoi nous choisir</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item fade-in">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>Restaurant français à Abbeville</span>
+      </div>
+      <div class="trust-item fade-in">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>Accueil chaleureux et convivial</span>
+      </div>
+      <div class="trust-item fade-in">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>Plat du jour présenté avec soin</span>
+      </div>
+      <div class="trust-item fade-in">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Ouvert du mardi au samedi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer aria-label="Pied de page Le Petit Bistrot">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Le Petit Bistrot</h3>
+      <p>Restaurant français au cœur d'Abbeville. Une cuisine conviviale, un accueil chaleureux, du mardi au samedi.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/810711229016016" target="_blank" rel="noopener noreferrer" aria-label="Page Facebook du Petit Bistrot">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#cuisine">Notre cuisine</a></li>
+        <li><a href="#avis">Avis clients</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#horaires">Horaires</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+33322242413" aria-label="Appeler le Petit Bistrot">+33 3 22 24 24 13</a></li>
+        <li><span>15 Pl. Max Lejeune</span></li>
+        <li><span>80100 Abbeville, France</span></li>
+        <li><span>Du mardi au samedi</span></li>
+        <li><span>8h30 – 19h00</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Le Petit Bistrot — 15 Pl. Max Lejeune, 80100 Abbeville, France — Tél. +33322242413</span>
+    <span>Tous droits réservés.</span>
+  </div>
+</footer>
+
+<!-- ── SCROLL TO TOP ── -->
+<button id="scrolltop" aria-label="Retour en haut de page">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  // ── BURGER MENU ──
+  const burger = document.getElementById('burger');
+  const navMenu = document.getElementById('nav-menu');
+
+  burger.addEventListener('click', function() {
+    const isOpen = navMenu.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navMenu.classList.remove('open');
+      burger.classList.remove('active');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ── FADE-IN OBSERVER ──
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
+  // ── CAROUSEL ──
+  (function() {
+    const track = document.getElementById('carouselTrack');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+    let slidesPerView = 1;
+    let total = slides.length;
+
+    function getSlidesPerView() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function updateCarousel() {
+      slidesPerView = getSlidesPerView();
+      const maxIndex = Math.max(0, total - slidesPerView);
+      if (current > maxIndex) current = maxIndex;
+      const pct = (100 / slidesPerView) * current;
+      track.style.transform = 'translateX(-' + pct + '%)';
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(index) {
+      const maxIndex = Math.max(0, total - getSlidesPerView());
+      current = Math.max(0, Math.min(index, maxIndex));
+      updateCarousel();
+    }
+
+    prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        goTo(parseInt(dot.getAttribute('data-index'), 10));
+      });
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+
+    // Auto-play
+    setInterval(function() {
+      const maxIndex = Math.max(0, total - getSlidesPerView());
+      goTo(current >= maxIndex ? 0 : current + 1);
+    }, 4500);
+  })();
+
+  // ── SCROLL TO TOP ──
+  const scrollBtn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', function() {
+    scrollBtn.classList.toggle('show', window.scrollY > 400);
+  });
+  scrollBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+<!-- KAMKOD:DEMO_START -->
+<script>
+(function(){
+  var URL = 'https://checkout.kamkod.com/d/ChIJ6WUBFbiM3UcRmnRZldrpZPU';
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('a, button, [role="button"]');
+    if(!el || el.closest('form')) return;               /* formulaire -> endpoint contact */
+    if(el.classList.contains('cta')) { e.preventDefault(); window.location.href = URL; return; }
+    if(el.closest('header nav, nav')) return;           /* navigation interne de la démo */
+    var a = e.target.closest('a');
+    if(!a) return;                                      /* bouton seul hors nav: on laisse */
+    var href = a.getAttribute('href') || '';
+    if(href.charAt(0) === '#') return;                  /* ancres de section */
+    if(/^https?:|^\/\//i.test(href)) return;
+    e.preventDefault(); window.location.href = URL;     /* tel:, mailto:, javascript:… */
+  }, true);
+})();
+</script>
+<div id="kamkod-demo-banner" data-pid="ChIJ6WUBFbiM3UcRmnRZldrpZPU" data-echeance="1789888116670"
+     style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;z-index:9999;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;box-shadow:0 -2px 14px rgba(0,0,0,.4);">
+  <div style="max-width:920px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;">
+    <span style="flex:1;min-width:200px;font-size:13px;opacity:.8;">Aperçu de votre futur site</span>
+    <span id="kk-offre" style="font-size:14px;font-variant-numeric:tabular-nums;">Prix de lancement : <b>49,00 €</b> — encore 47h 59min 59s</span>
+    <a href="https://checkout.kamkod.com/d/ChIJ6WUBFbiM3UcRmnRZldrpZPU" style="background:#EA580C;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap;">Activer mon site</a>
+  </div>
+</div>
+<script>
+/* COMPTE À REBOURS DE LA BANNIÈRE (demande Alex 11/09) : le prospect passe le plus
+   de temps SUR SON SITE — l'urgence doit être ici, pas seulement sur la page de
+   vente après un clic de plus. Même mécanique que la page : fenêtre 48 h, prix de
+   lancement, et le prix plein annoncé une fois la fenêtre passée.
+   L'échéance est EMBARQUÉE à l'injection (aucune dépendance réseau) puis
+   resynchronisée depuis /api/offre toutes les 2 min (une réinitialisation de
+   fenêtre doit se propager à un site déjà déployé). */
+(function(){
+  var b = document.getElementById('kamkod-demo-banner');
+  if(!b) return;
+  var ach = parseInt(b.getAttribute('data-echeance') || '0', 10);
+  var pid = b.getAttribute('data-pid');
+  var el  = document.getElementById('kk-offre');
+  if(!el) return;
+  var T_LAUNCH = "Prix de lancement : <b>%PRIX%</b> — encore %TEMPS%";
+  var T_OVER   = "Le déploiement est passé à <b>%PRIX%</b>";
+  var PRIX_L   = "49,00 €";
+  var PRIX_O   = "98,00 €";
+  function deux(n){ return (n < 10 ? '0' : '') + n; }
+  function hms(s){
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
+    return h + 'h ' + deux(m) + 'min ' + deux(x) + 's';
+  }
+  function rendu(){
+    var s = ach ? Math.floor((ach - Date.now()) / 1000) : 0;
+    if(s > 0){
+      el.innerHTML = T_LAUNCH.replace('%TEMPS%', hms(s)).replace('%PRIX%', PRIX_L);
+    } else {
+      el.innerHTML = T_OVER.replace('%PRIX%', PRIX_O);
+    }
+  }
+  rendu();
+  setInterval(rendu, 1000);
+  function sync(){
+    try{
+      fetch('https://checkout.kamkod.com/api/offre/' + pid, {cache:'no-store'})
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(d && d.echeance_ms){ ach = d.echeance_ms; }
+          if(d && d.prix_lancement){ PRIX_L = d.prix_lancement; }
+          if(d && d.prix_apres){ PRIX_O = d.prix_apres; }
+          rendu();
+        })
+        .catch(function(){});
+    }catch(e){}
+  }
+  setTimeout(sync, 5000);
+  setInterval(sync, 120000);
+})();
+</script>
+<script>
+/* KAMKOD-MESURE v1 — page="site" | mesure agrégée : aucun cookie, aucun identifiant. */
+(function(){
+  try{
+    var PID="ChIJ6WUBFbiM3UcRmnRZldrpZPU", PAGE="site";
+    var URL="https://checkout.kamkod.com/api/comportement/"+PID;
+    var vis=0, lastIn=Date.now(), scrollMax=0, clics=0, cta=0, premier=1, vues={};
+    var mobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent||'');
+    function cache(){ return document.visibilityState==='hidden'; }
+    function temps(){ var n=Date.now(); if(!cache() && lastIn){ vis+=n-lastIn; } lastIn=n; }
+    function majScroll(){
+      var h=Math.max(1,(document.documentElement.scrollHeight||0)-window.innerHeight);
+      var p=Math.round(Math.min(100,((window.pageYOffset||window.scrollY||0)/h)*100));
+      if(p>scrollMax){ scrollMax=p; }
+    }
+    function majSections(){
+      var hs=document.querySelectorAll('h1,h2,h3');
+      for(var i=0;i<hs.length && i<40;i++){
+        var r=hs[i].getBoundingClientRect();
+        if(r.top<window.innerHeight && r.bottom>0){
+          var t=(hs[i].textContent||'').replace(/\s+/g,' ').trim().slice(0,60);
+          if(t){ vues[t]=(vues[t]||0)+1; }
+        }
+      }
+    }
+    function estCta(el){ var a=null,n=el;while(n&&n.tagName!=='A'){n=n.parentNode;}
+      a=n;if(!a||!a.getAttribute)return false;
+      var h=a.getAttribute('href')||'';
+      return h.indexOf('/d/')>-1||h.indexOf('checkout.kamkod.com')>-1; }
+    function envoi(force){
+      try{
+        temps();
+        var secs=Object.keys(vues);
+        if(!force && !secs.length && !vis && !clics && !scrollMax){ return; }
+        var corps=JSON.stringify({v:1, page:PAGE, debut:premier?1:0, temps_ms:Math.round(vis),
+          scroll_max:scrollMax, clics:clics, cta_clics:cta, mobile:mobile, sections:secs});
+        var ok=false;
+        try{
+          if(navigator.sendBeacon){ ok=navigator.sendBeacon(URL, corps); }
+          if(!ok){
+            var x=new XMLHttpRequest();
+            x.open('POST',URL,true);
+            x.setRequestHeader('Content-Type','text/plain;charset=UTF-8');
+            x.send(corps); ok=true;
+          }
+        }catch(e){}
+        if(ok){ premier=0; vis=0; clics=0; cta=0; vues={}; }
+      }catch(e){}
+    }
+    window.addEventListener('scroll',function(){try{majScroll();majSections();}catch(e){}},{passive:true});
+    document.addEventListener('click',function(ev){
+      try{ clics++; if(estCta(ev.target)){ cta++; } }catch(e){}
+    },true);
+    document.addEventListener('visibilitychange',function(){
+      try{ if(cache()){ envoi(false); } else { lastIn=Date.now(); } }catch(e){}
+    });
+    window.addEventListener('pagehide',function(){try{envoi(true);}catch(e){}});
+    setTimeout(function(){try{majScroll();majSections();envoi(false);}catch(e){}},3000);
+    setInterval(function(){try{majSections();envoi(false);}catch(e){}},30000);
+  }catch(e){}
+})();
+</script>
+<!-- KAMKOD:DEMO_END -->
+</body>
+</html>
